@@ -6,12 +6,13 @@ import { theme } from '../utils/useTheme';
 import { moderateScale, verticalScale } from '../utils/Responsives';
 
 interface RecordButtonProps {
-  navigation?: () => void;
+  onAction?: () => void;
+
 }
 
-const RecordButton: React.FC<RecordButtonProps> = ({ navigation }) => {
+const RecordButton: React.FC<RecordButtonProps> = ({ onAction }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={navigation}>
+    <TouchableOpacity style={styles.container} onPress={onAction}>
       <SvgIcon xmlPath={Xmls.MicIcon} />
       <Text style={styles.text}>Record</Text>
     </TouchableOpacity>

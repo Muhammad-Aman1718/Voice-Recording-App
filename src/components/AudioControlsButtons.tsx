@@ -6,15 +6,17 @@ import { Xmls } from '../utils/Xmls';
 
 interface AudioControlsButtonsProps {
   isRecordingOn?: boolean;
+  stopRecording?: () => void;
+  pauseRecording?: () => void;
+  continueRecording?: () => void;
 }
 
-const AudioControlsButtons: React.FC<AudioControlsButtonsProps> = (
-  {
-    // isRecordingOn,
-  },
-) => {
-  const [isRecordingOn, setIsRecordingOn] = useState(true);
-
+const AudioControlsButtons: React.FC<AudioControlsButtonsProps> = ({
+  stopRecording,
+  pauseRecording,
+  continueRecording,
+  isRecordingOn,
+}) => {
   return (
     <View style={styles.playButtons}>
       {isRecordingOn ? (
@@ -22,21 +24,21 @@ const AudioControlsButtons: React.FC<AudioControlsButtonsProps> = (
           title="Pause"
           bgColor={theme.lightColor.bgColor}
           icon={Xmls.PauseIcon}
-          onAction={() => setIsRecordingOn(!isRecordingOn)}
+          onAction={pauseRecording}
         />
       ) : (
         <ControlsButton
           title="Continue"
           bgColor={theme.lightColor.continueBgolor}
           icon={Xmls.PauseIcon}
-          onAction={() => setIsRecordingOn(!isRecordingOn)}
+          onAction={continueRecording}
         />
       )}
       <ControlsButton
         title="Stop"
         bgColor={theme.lightColor.stopBgolor}
         icon={Xmls.StopIcon}
-        onAction={() => console.log('stop btn')}
+        onAction={stopRecording}
       />
     </View>
   );

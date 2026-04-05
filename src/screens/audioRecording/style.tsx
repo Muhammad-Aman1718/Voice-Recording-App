@@ -10,56 +10,47 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
+  idleStatus: {
     flex: 1,
     paddingHorizontal: horizontalScale(20),
     marginTop: verticalScale(30),
     rowGap: 15,
+    alignItems: 'center',
   },
-  topContainer: {
+
+  finishedStatus: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: horizontalScale(20),
+    marginTop: verticalScale(30),
+    rowGap: 15,
+    alignItems: 'center',
+  },
+  audioLineContainer: {
+    flex: 5,
+    width: '100%',
+    backgroundColor: theme.lightColor.bgColor,
+    borderRadius: moderateScale(20),
     justifyContent: 'center',
-  },
-  cloudButton: {
-    marginBottom: 15,
-  },
-
-  controlsContainer: {
-    width: '100%',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
-
-  buttonWrapper: {
+  waveformContainer: {
+    borderWidth: 1,
     width: '100%',
+    flex: 1,
+    height: 400,
   },
-  buttonControlsWrapper: {
-    width: '100%',
+  playButtons: {
     flexDirection: 'row',
-    columnGap: 15,
-  },
-  audioTitleContainer: {
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: 10,
   },
-  audioTitle: {
-    fontSize: moderateScale(20),
-    fontFamily: theme.fontFamily.DMSansMedium,
-    color: theme.lightColor.black,
-  },
-  recordButton: {
+  playButton: {
     flex: 1,
     padding: 10,
-    height: verticalScale(74),
-    marginVertical: verticalScale(24),
     overflow: 'hidden',
-  },
-
-  playButtons: {
-    width: '100%',
-    flexDirection: 'row',
-    columnGap: 15,
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
 });

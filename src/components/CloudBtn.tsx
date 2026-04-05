@@ -4,13 +4,13 @@ import SvgIcon from '../assets/icons/SvgIcon';
 import { moderateScale, verticalScale } from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
 
-interface ControlsButtonProps {
+interface CloudBtnProps {
   bgColor?: string;
   icon: string;
   title?: string;
   onAction?: () => void;
 }
-const ControlsButton: React.FC<ControlsButtonProps> = ({
+const CloudBtn: React.FC<CloudBtnProps> = ({
   bgColor,
   icon,
   title,
@@ -28,12 +28,12 @@ const ControlsButton: React.FC<ControlsButtonProps> = ({
   );
 };
 
-export default ControlsButton;
+export default CloudBtn;
 
 const styles = StyleSheet.create({
   container: {
-    height: verticalScale(45),
-    flex: 1,
+    height: verticalScale(50),
+    width: '100%',
     borderRadius: 148,
     flexDirection: 'row',
     alignItems: 'center',

@@ -9,11 +9,15 @@ import {
 } from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
 
-const Timer = () => {
+interface TimerProps {
+  timer?: string;
+}
+
+const Timer: React.FC<TimerProps> = ({ timer }) => {
   return (
     <View style={styles.timerRow}>
       <SvgIcon xmlPath={Xmls.BlackDotIcon} />
-      <Text style={styles.timerText}>00:00.00</Text>
+      <Text style={styles.timerText}>{timer}</Text>
     </View>
   );
 };

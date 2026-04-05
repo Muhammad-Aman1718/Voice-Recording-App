@@ -25,9 +25,7 @@ function App() {
         {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
         <NavigationContainer>
           <MainStack />
-        </NavigationContainer>
-        {/* <Login /> */}
-        {/* <Home /> */}
+        </NavigationContainer> 
       </View>
     </SafeAreaProvider>
   );

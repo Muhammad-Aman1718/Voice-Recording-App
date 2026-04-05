@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, type DimensionValue } from 'react-native';
 import {
   horizontalScale,
   moderateScale,
@@ -16,13 +16,18 @@ interface AudioProgressBarProps {
 const AudioProgressBar: React.FC<AudioProgressBarProps> = ({
   currentTime,
   duration,
-  progress,
+  progress = 0,
 }) => {
+  const progressPercent = `${Math.min(
+    Math.max(progress * 100, 0),
+    100,
+  )}%` as DimensionValue;
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.track}>
-        <View style={[styles.progressLine]} />
-        <View style={[styles.thumb]} />
+        <View style={[styles.progressLine, { width: progressPercent }]} />
+        <View style={[styles.thumb, { left: progressPercent }]} />
       </View>
 
       <View style={styles.timeRow}>
@@ -37,7 +42,8 @@ export default AudioProgressBar;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
+    width: '100%',
+    marginTop: 10,
   },
   track: {
     height: verticalScale(6),

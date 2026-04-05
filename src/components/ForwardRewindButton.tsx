@@ -5,11 +5,15 @@ import { theme } from '../utils/useTheme';
 
 interface ForwardRewindButtonProps {
   icon: string;
+  onAction: () => void;
 }
 
-const ForwardRewindButton: React.FC<ForwardRewindButtonProps> = ({ icon }) => {
+const ForwardRewindButton: React.FC<ForwardRewindButtonProps> = ({
+  icon,
+  onAction,
+}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={onAction} style={styles.container}>
       <SvgIcon xmlPath={icon} />
     </TouchableOpacity>
   );

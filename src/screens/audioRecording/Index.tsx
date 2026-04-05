@@ -1,28 +1,47 @@
 import React, { useState } from 'react';
-import SvgIcon from '../../assets/icons/SvgIcon';
-import AudioLine from '../../components/AudioLine';
-import RecordButton from '../../components/RecordButton';
 import Header from '../../components/Header';
-import { Xmls } from '../../utils/Xmls';
-import { theme } from '../../utils/useTheme';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { NavigationProps, statusTypes } from '../../utils/Types';
-import ControlsButton from '../../components/ControlsButton';
-import AudioProgressBar from '../../components/AudioProgressBar';
-import ForwardRewindButton from '../../components/ForwardRewindButton';
-import RadialGradient from 'react-native-radial-gradient';
-// import { styles } from './style';
+import { styles } from './style';
 import AudioControlsButtons from '../../components/AudioControlsButtons';
 import Waveform from '../../components/Waveform';
 import Timer from '../../components/Timer';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../utils/Responsives';
+import AudioTitle from '../../components/AudioTitle';
+import RecordButton from '../../components/RecordButton';
+import ControlsButton from '../../components/ControlsButton';
+import { theme } from '../../utils/useTheme';
+import { Xmls } from '../../utils/Xmls';
+import AudioProgressBar from '../../components/AudioProgressBar';
+import ForwardRewindButton from '../../components/ForwardRewindButton';
+import RadialGradient from 'react-native-radial-gradient';
+import useAudioRecording from '../../hooks/useAudioRecording';
+import AudioLine from '../../components/AudioLine';
+import WaveBar from '../../components/WaveBar';
+import CloudBtn from '../../components/CloudBtn';
 
 const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
-  const [status, setStatus] = useState<statusTypes>('idle'); // 'idle', 'recording', 'paused', 'finished'
+  const {
+    status,
+    isRecordingOn,
+    isPlaying,
+    displayTime,
+    currentPosition,
+    totalDuration,
+    playTime,
+    duration,
+    isPaused,
+    metering,
+    handleStartRecording,
+    handleStopRecording,
+    handlePauseRecording,
+    handleContinueRecording,
+    handleTogglePlayback,
+    handleStopPlayer,
+    handleForward,
+    handleRewind,
+  } = useAudioRecording();
+
+  console.log(metering);
 
   return (
     <View style={styles.container}>
@@ -32,109 +51,86 @@ const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
         arrowOnPress={() => navigation.goBack()}
       />
 
-      <View style={styles.content}>
-        {/* <View style={styles.topContainer}>
-          <View style={styles.cloudButton}>
-            <ControlsButton
-              title="Uploaded"
-              bgColor={theme.lightColor.bgColor}
-              icon={Xmls.CloudDoneIcon}
+      {status === 'idle' && (
+        <View style={styles.idleStatus}>
+          <View style={[styles.audioLineContainer]}>
+            <AudioLine />
+          </View>
+          <Timer timer={displayTime} />
+          <RecordButton onAction={handleStartRecording} />
+        </View>
+      )}
+
+      {status === 'recording' && (
+        <View style={styles.idleStatus}>
+          <AudioTitle />
+          <Waveform meteringArray={metering} />
+          <Timer timer={displayTime} />
+          <AudioControlsButtons
+            pauseRecording={handlePauseRecording}
+            continueRecording={handleContinueRecording}
+            stopRecording={handleStopRecording}
+            isRecordingOn={isRecordingOn}
+          />
+        </View>
+      )}
+
+      {status === 'finished' && (
+        <View style={styles.finishedStatus}>
+          {/* <CloudBtn
+            title="Uploaded"
+            bgColor={theme.lightColor.bgColor}
+            icon={Xmls.CloudDoneIcon}
+          /> */}
+          <AudioTitle />
+          <Waveform meteringArray={metering} />
+          {/* <View style={[styles.audioLineContainer]}>
+            <AudioLine />
+          </View> */}
+          <AudioProgressBar
+            progress={totalDuration > 0 ? currentPosition / totalDuration : 0}
+            currentTime={playTime}
+            duration={duration}
+          />
+          <View style={styles.playButtons}>
+            <ForwardRewindButton
+              onAction={handleRewind}
+              icon={Xmls.RewindButton}
+            />
+            <RadialGradient
+              colors={['#e0e1e7', '#9295b04d']}
+              radius={0}
+              style={[styles.playButton, { borderRadius: 148 }]}
+            >
+              <ControlsButton
+                // Icon Logic: Agar playing hai to Pause icon, warna Play/Continue icon
+                icon={
+                  isPlaying
+                    ? Xmls.PauseIcon
+                    : isPaused
+                    ? Xmls.ContinueIcon
+                    : Xmls.PlayIcon
+                }
+                // Title Logic
+                title={isPlaying ? 'Pause' : isPaused ? 'Resume' : 'Play'}
+                bgColor={theme.lightColor.white}
+                onAction={handleTogglePlayback} // Single function call
+              />
+            </RadialGradient>
+            <ForwardRewindButton
+              onAction={handleForward}
+              icon={Xmls.ForwardButton}
             />
           </View>
-        </View> */}
-
-        <Waveform />
-
-        <Timer />
-        <RecordButton />
-        {/* <View style={styles.controlsContainer}>
-          <View style={styles.controlsContainer}> */}
-        {/* <AudioControlsButtons /> */}
-
-        {/* <View style={styles.playButtons}>
-              <ForwardRewindButton icon={Xmls.RewindButton} />
-              <RadialGradient
-                colors={['#262E7A', '#262E7A4D']}
-                radius={0}
-                style={[styles.recordButton, { borderRadius: 148 }]}
-              >
-                <ControlsButton
-                  icon={Xmls.PlayIcon}
-                  title="Play"
-                  bgColor={theme.lightColor.white}
-                />
-              </RadialGradient>
-              <ForwardRewindButton icon={Xmls.ForwardButton} />
-            </View>
-            <ControlsButton
-              title="Upload to Cloud"
-              bgColor={theme.lightColor.continueBgolor}
-              icon={Xmls.UploadIcon}
-            /> */}
-        {/* </View>
-        </View> */}
-      </View>
+          <CloudBtn
+            title="Upload to Cloud"
+            bgColor={theme.lightColor.continueBgolor}
+            icon={Xmls.UploadIcon}
+          />
+        </View>
+      )}
     </View>
   );
 };
 
 export default AudioRecording;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: horizontalScale(20),
-    marginTop: verticalScale(30),
-    rowGap: 15,
-    alignItems: 'center',
-  },
-  topContainer: {
-    justifyContent: 'center',
-  },
-  cloudButton: {
-    marginBottom: 15,
-  },
-
-  controlsContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
-
-  buttonWrapper: {
-    width: '100%',
-  },
-  buttonControlsWrapper: {
-    width: '100%',
-    flexDirection: 'row',
-    columnGap: 15,
-  },
-  audioTitleContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  audioTitle: {
-    fontSize: moderateScale(20),
-    fontFamily: theme.fontFamily.DMSansMedium,
-    color: theme.lightColor.black,
-  },
-  recordButton: {
-    flex: 1,
-    padding: 10,
-    height: verticalScale(74),
-    marginVertical: verticalScale(24),
-    overflow: 'hidden',
-  },
-
-  playButtons: {
-    width: '100%',
-    flexDirection: 'row',
-    columnGap: 15,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});
