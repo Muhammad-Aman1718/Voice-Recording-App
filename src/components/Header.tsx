@@ -1,17 +1,11 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import SvgIcon from '../assets/icons/SvgIcon';
 import { Xmls } from '../utils/Xmls';
 import { IMGS } from '../constant/Imgs';
 import { theme } from '../utils/useTheme';
+import { HeaderProps } from '../../../AwesomeProject/src/types/type';
 import { horizontalScale, verticalScale } from '../utils/Responsives';
-
-interface HeaderProps {
-  showArrow?: boolean;
-  showProfile?: boolean;
-  arrowOnPress?: () => void;
-  profileOnPress?: () => void;
-}
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Header: React.FC<HeaderProps> = ({
   showArrow,

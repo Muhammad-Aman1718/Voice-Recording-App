@@ -1,17 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Xmls } from '../utils/Xmls';
 import SvgIcon from '../assets/icons/SvgIcon';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../utils/Responsives';
+import { Xmls } from '../utils/Xmls';
 import { theme } from '../utils/useTheme';
-
-interface TimerProps {
-  timer?: string;
-}
+import { StyleSheet, Text, View } from 'react-native';
+import { horizontalScale, moderateScale } from '../utils/Responsives';
+import { TimerProps } from '../../../AwesomeProject/src/types/type';
 
 const Timer: React.FC<TimerProps> = ({ timer }) => {
   return (

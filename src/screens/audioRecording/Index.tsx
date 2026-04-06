@@ -31,6 +31,7 @@ const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
     duration,
     isPaused,
     metering,
+    recordedWave,
     handleStartRecording,
     handleStopRecording,
     handlePauseRecording,
@@ -41,7 +42,6 @@ const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
     handleRewind,
   } = useAudioRecording();
 
-  console.log(metering);
 
   return (
     <View style={styles.container}>
@@ -64,7 +64,7 @@ const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
       {status === 'recording' && (
         <View style={styles.idleStatus}>
           <AudioTitle />
-          <Waveform meteringArray={metering} />
+          <Waveform meteringArray={metering} isRecording={true}/>
           <Timer timer={displayTime} />
           <AudioControlsButtons
             pauseRecording={handlePauseRecording}
@@ -83,10 +83,11 @@ const AudioRecording: React.FC<NavigationProps> = ({ navigation }) => {
             icon={Xmls.CloudDoneIcon}
           /> */}
           <AudioTitle />
-          <Waveform meteringArray={metering} />
-          {/* <View style={[styles.audioLineContainer]}>
-            <AudioLine />
-          </View> */}
+          <Waveform
+            meteringArray={recordedWave!}
+            progress={currentPosition / totalDuration}
+          />
+
           <AudioProgressBar
             progress={totalDuration > 0 ? currentPosition / totalDuration : 0}
             currentTime={playTime}

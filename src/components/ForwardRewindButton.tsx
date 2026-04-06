@@ -1,12 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import SvgIcon from '../assets/icons/SvgIcon';
 import { theme } from '../utils/useTheme';
-
-interface ForwardRewindButtonProps {
-  icon: string;
-  onAction: () => void;
-}
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ForwardRewindButtonProps } from '../../../AwesomeProject/src/types/type';
 
 const ForwardRewindButton: React.FC<ForwardRewindButtonProps> = ({
   icon,

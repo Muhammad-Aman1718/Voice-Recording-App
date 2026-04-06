@@ -1,15 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import SvgIcon from '../assets/icons/SvgIcon';
-import { moderateScale, verticalScale } from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { moderateScale, verticalScale } from '../utils/Responsives';
+import { CloudBtnProps } from '../../../AwesomeProject/src/types/type';
 
-interface CloudBtnProps {
-  bgColor?: string;
-  icon: string;
-  title?: string;
-  onAction?: () => void;
-}
 const CloudBtn: React.FC<CloudBtnProps> = ({
   bgColor,
   icon,

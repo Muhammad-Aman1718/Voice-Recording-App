@@ -3,12 +3,7 @@ import SvgIcon from '../assets/icons/SvgIcon';
 import { theme } from '../utils/useTheme';
 import { moderateScale, verticalScale } from '../utils/Responsives';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-interface ProfileMenuItemProps {
-  title: string;
-  iconXml: string;
-  onPress?: () => void;
-}
+import { ProfileMenuItemProps } from '../../../AwesomeProject/src/types/type';
 
 const ProfileMenuItem: React.FC<ProfileMenuItemProps> = ({
   title,

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { statusTypes } from '../utils/Types';
 import Sound, { type PlayBackType } from 'react-native-nitro-sound';
 
 const useAudioRecording = () => {
-  const [status, setStatus] = useState<statusTypes>('recording');
+  const [status, setStatus] = useState<statusTypes>('idle');
   const [soundPath, setSoundPath] = useState<string | null>(null);
   const [isRecordingOn, setIsRecordingOn] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,6 +14,22 @@ const useAudioRecording = () => {
   const [duration, setDuration] = useState('00:00:00');
   const [isPaused, setIsPaused] = useState(false);
   const [metering, setMetering] = useState<number[]>(Array(40).fill(-60));
+  const [recordedWave, setRecordedWave] = useState<number[]>();
+  const rawWaveRef = useRef<number[]>([]);
+
+  const compressWave = (data: number[], size = 60) => {
+    const chunkSize = Math.ceil(data.length / size);
+    const result = [];
+
+    for (let i = 0; i < data.length; i += chunkSize) {
+      const chunk = data.slice(i, i + chunkSize);
+      const avg = chunk.reduce((a, b) => a + b, 0) / chunk.length;
+
+      result.push(avg);
+    }
+
+    return result;
+  };
 
   const handleStartRecording = async () => {
     try {
@@ -24,17 +40,15 @@ const useAudioRecording = () => {
         const now = Date.now();
         if (now - lastUpdate < 80) return;
         lastUpdate = now;
-
         setDisplayTime(Sound.mmssss(Math.floor(e.currentPosition)));
-
         const newLevel = e.currentMetering ?? -60;
-
         setMetering(prev => {
           const updated = [...prev];
-          updated.pop(); // last remove
-          updated.unshift(newLevel); // new add front
+          updated.pop();
+          updated.unshift(newLevel);
           return updated;
         });
+        rawWaveRef.current.push(newLevel);
       });
 
       await Sound.startRecorder(undefined, undefined, true);
@@ -65,6 +79,9 @@ const useAudioRecording = () => {
       setDuration(displayTime);
       setPlayTime('00:00:00');
       console.log('Recording stopped.');
+
+      const compressed = compressWave(rawWaveRef.current, 60);
+      setRecordedWave(compressed);
     } catch (error) {
       console.error('Stop Recording Error:', error);
     }
@@ -164,6 +181,7 @@ const useAudioRecording = () => {
     isPaused,
     duration,
     metering,
+    recordedWave,
     handleStartRecording,
     handleStopRecording,
     handlePauseRecording,

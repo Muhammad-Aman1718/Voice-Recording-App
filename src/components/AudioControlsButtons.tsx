@@ -1,15 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import ControlsButton from './ControlsButton';
-import { theme } from '../utils/useTheme';
+import { AudioControlsButtonsProps } from '../../../AwesomeProject/src/types/type';
 import { Xmls } from '../utils/Xmls';
-
-interface AudioControlsButtonsProps {
-  isRecordingOn?: boolean;
-  stopRecording?: () => void;
-  pauseRecording?: () => void;
-  continueRecording?: () => void;
-}
+import { theme } from '../utils/useTheme';
+import { StyleSheet, View } from 'react-native';
 
 const AudioControlsButtons: React.FC<AudioControlsButtonsProps> = ({
   stopRecording,

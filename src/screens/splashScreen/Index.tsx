@@ -1,12 +1,11 @@
-import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
-import { IMGS } from '../../constant/Imgs';
-import LinearGradient from 'react-native-linear-gradient';
-import { verticalScale, horizontalScale } from '../../utils/Responsives';
 import Button from '../../components/Button';
-import { theme } from '../../utils/useTheme';
-import type { NavigationProps } from '../../utils/Types';
+import LinearGradient from 'react-native-linear-gradient';
 import { styles } from './Style';
+import { IMGS } from '../../constant/Imgs';
+import { theme } from '../../utils/useTheme';
+import { NavigationProps } from '../../utils/Types';
+import { ImageBackground, View, Image } from 'react-native';
 
 const SplashScreen: React.FC<NavigationProps> = ({ navigation }) => {
   return (

@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
+import SvgIcon from '../assets/icons/SvgIcon';
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
   TouchableOpacity,
-  TextInputProps,
 } from 'react-native';
-import { theme } from '../utils/useTheme'; // Aapka theme file
+import { theme } from '../utils/useTheme';
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
 } from '../utils/Responsives';
 import { Xmls } from '../utils/Xmls';
-import SvgIcon from '../assets/icons/SvgIcon';
-
-interface AuthInputProps extends TextInputProps {
-  label: string;
-  error?: string;
-  isPassword?: boolean;
-}
+import { AuthInputProps } from '../../../AwesomeProject/src/types/type';
 
 const AuthInput: React.FC<AuthInputProps> = ({
   label,

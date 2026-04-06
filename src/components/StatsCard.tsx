@@ -1,15 +1,10 @@
 import React from 'react';
 import SvgIcon from '../assets/icons/SvgIcon';
 import RadialGradient from 'react-native-radial-gradient';
-import { StyleSheet, Text, View } from 'react-native';
-import { moderateScale } from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
-
-interface StatsCardProps {
-  title?: string;
-  number?: string;
-  icon?: string;
-}
+import { moderateScale } from '../utils/Responsives';
+import { StyleSheet, Text, View } from 'react-native';
+import { StatsCardProps } from '../../../AwesomeProject/src/types/type';
 
 const StatsCard: React.FC<StatsCardProps> = ({ title, number, icon }) => {
   return (

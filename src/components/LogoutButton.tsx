@@ -1,17 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import SvgIcon from '../assets/icons/SvgIcon';
 import { Xmls } from '../utils/Xmls';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
-
-interface LogoutButtonProps {
-  onPress?: () => void;
-}
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { moderateScale, verticalScale } from '../utils/Responsives';
+import { LogoutButtonProps } from '../../../AwesomeProject/src/types/type';
 
 const LogoutButton: React.FC<LogoutButtonProps> = ({ onPress }) => {
   return (

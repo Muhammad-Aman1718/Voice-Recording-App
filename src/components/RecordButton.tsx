@@ -1,14 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import SvgIcon from '../assets/icons/SvgIcon';
 import { Xmls } from '../utils/Xmls';
 import { theme } from '../utils/useTheme';
 import { moderateScale, verticalScale } from '../utils/Responsives';
-
-interface RecordButtonProps {
-  onAction?: () => void;
-
-}
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RecordButtonProps } from '../../../AwesomeProject/src/types/type';
 
 const RecordButton: React.FC<RecordButtonProps> = ({ onAction }) => {
   return (

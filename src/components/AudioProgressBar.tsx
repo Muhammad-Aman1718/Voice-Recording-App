@@ -1,17 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, type DimensionValue } from 'react-native';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../utils/Responsives';
+import { StyleSheet, Text, View, DimensionValue } from 'react-native';
 import { theme } from '../utils/useTheme';
-
-interface AudioProgressBarProps {
-  currentTime?: string; // e.g., "00:00"
-  duration?: string; // e.g., "05:47"
-  progress?: number; // 0 se 1 ke darmiyan (e.g., 0.5 for 50%)
-}
+import { moderateScale, verticalScale } from '../utils/Responsives';
+import { AudioProgressBarProps } from '../../../AwesomeProject/src/types/type';
 
 const AudioProgressBar: React.FC<AudioProgressBarProps> = ({
   currentTime,

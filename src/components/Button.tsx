@@ -1,14 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { theme } from '../utils/useTheme';
-import { horizontalScale, moderateScale } from '../utils/Responsives';
-
-interface ButtonProps {
-  textColor?: string;
-  bgColor?: string;
-  title?: string;
-  onPress?: () => void;
-}
+import { moderateScale } from '../utils/Responsives';
+import { ButtonProps } from '../../../AwesomeProject/src/types/type';
 
 const Button: React.FC<ButtonProps> = ({
   title,

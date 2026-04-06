@@ -1,15 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import AudioLine from './AudioLine';
 import SvgIcon from '../assets/icons/SvgIcon';
 import { Xmls } from '../utils/Xmls';
-import { moderateScale, verticalScale } from '../utils/Responsives';
 import { theme } from '../utils/useTheme';
-
-interface RecordingCardProps {
-  route?: string;
-  uploaded?: boolean;
-}
+import { moderateScale } from '../utils/Responsives';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RecordingCardProps } from '../../../AwesomeProject/src/types/type';
 
 const RecordingCard: React.FC<RecordingCardProps> = ({ route, uploaded }) => {
   return (

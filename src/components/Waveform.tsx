@@ -1,12 +1,9 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import WaveBar from './WaveBar';
 import { theme } from '../utils/useTheme';
+import { View, StyleSheet } from 'react-native';
 import { moderateScale } from '../utils/Responsives';
-
-interface WaveformProps {
-  meteringArray: number[];
-}
+import { WaveformProps } from '../../../AwesomeProject/src/types/type';
 
 const getBarHeight = (db: number) => {
   const MIN_DB = -60;
@@ -17,10 +14,39 @@ const getBarHeight = (db: number) => {
   return normalized * 80;
 };
 
-const Waveform: React.FC<WaveformProps> = ({ meteringArray }) => {
+const BAR_WINDOW = 30;
+
+const Waveform: React.FC<WaveformProps> = ({
+  meteringArray,
+  progress = 0,
+  isRecording = false,
+}) => {
+  let barsToRender: number[] = [];
+
+  if (isRecording) {
+    barsToRender = meteringArray;
+  } else {
+    const currentIndex = Math.floor(progress * meteringArray.length);
+
+    const visibleBars = meteringArray.slice(
+      Math.max(0, currentIndex - BAR_WINDOW),
+      currentIndex,
+    );
+
+    barsToRender = [
+      ...Array(BAR_WINDOW - visibleBars.length).fill(-60),
+      ...visibleBars,
+    ];
+  }
+
   return (
-    <View style={styles.container}>
-      {meteringArray.map((db, index) => (
+    <View
+      style={[
+        styles.container,
+        { flexDirection: isRecording ? 'row-reverse' : 'row' },
+      ]}
+    >
+      {barsToRender.map((db, index) => (
         <WaveBar key={index} height={getBarHeight(db)} />
       ))}
     </View>
@@ -30,8 +56,7 @@ const Waveform: React.FC<WaveformProps> = ({ meteringArray }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:300,
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     width: '100%',
     backgroundColor: theme.lightColor.bgColor,
     borderRadius: moderateScale(20),

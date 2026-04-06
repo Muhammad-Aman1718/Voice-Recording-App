@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { theme } from '../utils/useTheme';
+import { StyleSheet, View } from 'react-native';
 import { moderateScale, verticalScale } from '../utils/Responsives';
 
 const AudioLine = () => {
@@ -8,7 +8,6 @@ const AudioLine = () => {
 };
 
 export default AudioLine;
-
 
 const styles = StyleSheet.create({
   line: {
